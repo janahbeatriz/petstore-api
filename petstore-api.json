@@ -99,7 +99,10 @@
 									"\r",
 									"pm.test(\"Pet Message is OrderID\", function () {\r",
 									"    var jsonData = pm.response.json();\r",
-									"    pm.expect(jsonData.status).to.eql(pm.environment.get(\"orderId\"));\r",
+									"    var orderId = pm.environment.get(\"orderId\");\r",
+									"    console.log('>>>', orderId)\r",
+									"    // Convert both values to strings for comparison\r",
+									"    pm.expect(String(jsonData.message)).to.eql(String(orderId));\r",
 									"});\r",
 									""
 								],
