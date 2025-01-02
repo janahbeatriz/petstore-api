@@ -1,4 +1,4 @@
-name: API Test Automation with Newman
+name: Run API Tests
 
 on:
   push:
@@ -8,27 +8,23 @@ on:
 jobs:
   run-tests:
     runs-on: ubuntu-latest
-
     steps:
-      # Checkout repository
-      - name: Checkout Code
+      - name: Checkout code
         uses: actions/checkout@v3
 
-      # Install Newman
-      - name: Install Newman
-        run: npm install -g newman
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
 
-      # Run Newman Tests
-      - name: Run Newman Tests
-        run: |
-          mkdir -p newman-reports
-          newman run petstore-api.json -e petstore-api-env.json \
-            --reporters cli,html \
-            --reporter-html-export newman-reports/report.html
+      - name: Install dependencies
+        run: npm install
 
-      # Publish Test Results to GitHub Pages
-      - name: Deploy to GitHub Pages
+      - name: Run API tests
+        run: newman run petstore-api.json -e petstore-api-env.json --reporters html,cli --reporter-html-export newman/report.html
+
+      - name: Deploy test results to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.TOKEN }}
-          publish_dir: newman-reports
+          publish_dir: newman
