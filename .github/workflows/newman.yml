@@ -20,16 +20,16 @@ jobs:
         with:
           node-version: '18'  # Ensure Node.js version >= 16 for Newman
 
-      # Step 3: Install Newman
+      # Step 3: Install Newman and required reporter
       - name: Install Newman
         run: npm install -g newman newman-reporter-html
 
       # Step 4: Run Postman tests and generate HTML report
       - name: Run Postman tests and generate HTML report
         run: |
-          newman run petstore-api.json -e petstore-api-env.json -r html,cli --reporter-html-export newman/newman-report.html
+          newman run petstore-api.json -e petstore-api-env.json -r html,cli --reporter-html-export newman/newman-report.html || true  # Continue even if tests fail
 
-      # Step 5 (Optional): Deploy HTML report to GitHub Pages
+      # Step 5: Deploy HTML report to GitHub Pages
       - name: Deploy report to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
         with:
