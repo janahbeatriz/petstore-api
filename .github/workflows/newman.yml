@@ -38,8 +38,8 @@ jobs:
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.PAT_TOKEN }}
-          publish_dir: newman  # Deploy the 'newman' folder
+          publish_dir: newman  # Deploy the 'newman' folder to GitHub Pages
 
-      # Step 7: Ensure deployment is successful (confirm gh-pages is created)
+      # Step 7: Confirm deployment
       - name: Confirm Deployment
         run: echo "GitHub Pages deployment complete!"
