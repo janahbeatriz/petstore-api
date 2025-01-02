@@ -1,37 +1,41 @@
-name: Run Newman API Tests
+name: Newman API Tests
 
 on:
   push:
     branches:
       - main
+  pull_request:
+    branches:
+      - main
 
 jobs:
-  run-newman-tests:
+  newman-tests:
     runs-on: ubuntu-latest
 
     steps:
       # Step 1: Checkout the repository
-      - name: Checkout repository
+      - name: Checkout code
         uses: actions/checkout@v3
 
       # Step 2: Set up Node.js
-      - name: Set up Node.js environment
+      - name: Setup Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: '18'  # Ensure Node.js version >= 16 for Newman
+          node-version: 16
 
-      # Step 3: Install Newman
-      - name: Install Newman
-        run: npm install -g newman
+      # Step 3: Install Newman and HTML reporter
+      - name: Install Newman and Reporter
+        run: |
+          npm install -g newman newman-reporter-html
 
-      # Step 4: Run Postman tests and generate HTML report
+      # Step 4: Run Newman tests and generate HTML report
       - name: Run Postman tests and generate HTML report
         run: |
-          newman run petstore-api.json -e petstore-api-env.json -r html,cli --reporter-html-export newman/newman-report.html
+          newman run petstore-api.json -e petstore-api-env.json -r html,cli --reporter-html-export newman-report.html
 
-      # Step 5 (Optional): Deploy HTML report to GitHub Pages
-      - name: Deploy report to GitHub Pages
-        uses: peaceiris/actions-gh-pages@v3
+      # Step 5: Upload HTML report as an artifact
+      - name: Upload HTML Report
+        uses: actions/upload-artifact@v3
         with:
-          github_token: ${{ secrets.PAT_TOKEN }}
-          publish_dir: newman
+          name: newman-report
+          path: newman-report.html
