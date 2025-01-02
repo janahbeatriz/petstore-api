@@ -1,0 +1,121 @@
+{
+	"info": {
+		"_postman_id": "e5d86db3-854d-4d98-838a-7059905f969f",
+		"name": "API Testing - PetStore Demo",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
+		"_exporter_id": "21106399",
+		"_collection_link": "https://winter-shadow-808398.postman.co/workspace/New-Team-Workspace~491ffc45-da09-45e2-8d5c-933fa4cf7bfa/collection/21106399-e5d86db3-854d-4d98-838a-7059905f969f?action=share&source=collection_link&creator=21106399"
+	},
+	"item": [
+		{
+			"name": "STORE API TESTS",
+			"item": [
+				{
+					"name": "TC1 - ORDER",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status Code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Pet Status is PLACED\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.status).to.eql(\"placed\");\r",
+									"});\r",
+									"pm.test(\"Capture orderId and store in environment\", function () {\r",
+									"    var responseJson = pm.response.json();\r",
+									"    if (responseJson.id) {\r",
+									"         pm.environment.set(\"orderId\", responseJson.id);\r",
+									"        console.log(\"Captured orderId: \" + pm.environment.get(\"orderId\"));\r",
+									"    } else {\r",
+									"        pm.expect(responseJson.id).to.be.ok;  // Use pm.expect here directly\r",
+									"    }\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"id\": 0,\r\n  \"petId\": 0,\r\n  \"quantity\": 0,\r\n  \"shipDate\": \"2025-01-02T07:45:49.615Z\",\r\n  \"status\": \"placed\",\r\n  \"complete\": true\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{url}}/v2/store/order"
+					},
+					"response": []
+				},
+				{
+					"name": "TC2 - GET ORDER ID",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status Code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Pet Status is placed\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.status).to.eql(\"placed\");\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "{{url}}/v2/store/order/{{orderId}}"
+					},
+					"response": []
+				},
+				{
+					"name": "TC3 - DELETE",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status Code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Pet Message is OrderID\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.status).to.eql(pm.environment.get(\"orderId\"));\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": "{{url}}/v2/store/order/{{orderId}}"
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}

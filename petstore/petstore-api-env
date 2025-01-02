@@ -1,0 +1,21 @@
+{
+	"id": "8e36818e-3026-4456-b63e-873087c17a73",
+	"name": "PETSTORE - API",
+	"values": [
+		{
+			"key": "url",
+			"value": "https://petstore.swagger.io",
+			"type": "default",
+			"enabled": true
+		},
+		{
+			"key": "orderId",
+			"value": "",
+			"type": "any",
+			"enabled": true
+		}
+	],
+	"_postman_variable_scope": "environment",
+	"_postman_exported_at": "2025-01-02T08:40:47.868Z",
+	"_postman_exported_using": "Postman/11.23.2"
+}
