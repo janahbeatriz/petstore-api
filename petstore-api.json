@@ -2,7 +2,7 @@
 	"info": {
 		"_postman_id": "e5d86db3-854d-4d98-838a-7059905f969f",
 		"name": "API Testing - PetStore Demo",
-		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
 		"_exporter_id": "21106399",
 		"_collection_link": "https://winter-shadow-808398.postman.co/workspace/New-Team-Workspace~491ffc45-da09-45e2-8d5c-933fa4cf7bfa/collection/21106399-e5d86db3-854d-4d98-838a-7059905f969f?action=share&source=collection_link&creator=21106399"
 	},
@@ -53,7 +53,17 @@
 								}
 							}
 						},
-						"url": "{{url}}/v2/store/order"
+						"url": {
+							"raw": "{{url}}/v2/store/order",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"v2",
+								"store",
+								"order"
+							]
+						}
 					},
 					"response": []
 				},
@@ -82,7 +92,18 @@
 					"request": {
 						"method": "GET",
 						"header": [],
-						"url": "{{url}}/v2/store/order/{{orderId}}"
+						"url": {
+							"raw": "{{url}}/v2/store/order/{{orderId}}",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"v2",
+								"store",
+								"order",
+								"{{orderId}}"
+							]
+						}
 					},
 					"response": []
 				},
@@ -114,7 +135,18 @@
 					"request": {
 						"method": "DELETE",
 						"header": [],
-						"url": "{{url}}/v2/store/order/{{orderId}}"
+						"url": {
+							"raw": "{{url}}/v2/store/order/{{orderId}}",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"v2",
+								"store",
+								"order",
+								"{{orderId}}"
+							]
+						}
 					},
 					"response": []
 				}
