@@ -1,4 +1,4 @@
-name: Run API Tests
+name: Run Newman API Tests
 
 on:
   push:
@@ -6,24 +6,31 @@ on:
       - main
 
 jobs:
-  run-tests:
+  run-newman-tests:
     runs-on: ubuntu-latest
+
     steps:
-      - name: Checkout code
+      # Step 1: Checkout the repository
+      - name: Checkout repository
         uses: actions/checkout@v3
 
-      - name: Set up Node.js
+      # Step 2: Set up Node.js
+      - name: Set up Node.js environment
         uses: actions/setup-node@v3
         with:
-          node-version: '18'  # Ensure Node.js version >= 16
+          node-version: '18'  # Ensure Node.js version >= 16 for Newman
 
+      # Step 3: Install Newman
       - name: Install Newman
         run: npm install -g newman
 
-      - name: Run API tests
-        run: newman run petstore_collection.json -e petstore_environment.json --reporters cli,html --reporter-html-export newman/report.html
+      # Step 4: Run Postman tests and generate HTML report
+      - name: Run Postman tests and generate HTML report
+        run: |
+          newman run collection.json -e environment.json -r html,cli --reporter-html-export newman/newman-report.html
 
-      - name: Deploy test results to GitHub Pages
+      # Step 5 (Optional): Deploy HTML report to GitHub Pages
+      - name: Deploy report to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.TOKEN }}
