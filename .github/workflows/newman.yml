@@ -15,13 +15,13 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: '18'
+          node-version: '18'  # Ensure Node.js version >= 16
 
-      - name: Install dependencies
-        run: npm install
+      - name: Install Newman
+        run: npm install -g newman
 
       - name: Run API tests
-        run: newman run petstore-api.json -e petstore-api-env.json --reporters html,cli --reporter-html-export newman/report.html
+        run: newman run petstore_collection.json -e petstore_environment.json --reporters cli,html --reporter-html-export newman/report.html
 
       - name: Deploy test results to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
