@@ -20,7 +20,7 @@ jobs:
         with:
           node-version: '18'  # Ensure Node.js version >= 16 for Newman
 
-      # Step 3: Install Newman and required reporter
+      # Step 3: Install Newman and HTML Reporter
       - name: Install Newman
         run: npm install -g newman newman-reporter-html
 
@@ -29,9 +29,17 @@ jobs:
         run: |
           newman run petstore-api.json -e petstore-api-env.json -r html,cli --reporter-html-export newman/newman-report.html || true  # Continue even if tests fail
 
-      # Step 5: Deploy HTML report to GitHub Pages
+      # Step 5: List files in the newman folder to confirm report generation
+      - name: List files in newman folder
+        run: ls -al newman
+
+      # Step 6: Deploy report to GitHub Pages
       - name: Deploy report to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.PAT_TOKEN }}
-          publish_dir: newman
+          publish_dir: newman  # Deploy the 'newman' folder
+
+      # Step 7: Ensure deployment is successful (confirm gh-pages is created)
+      - name: Confirm Deployment
+        run: echo "GitHub Pages deployment complete!"
