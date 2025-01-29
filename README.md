@@ -1,35 +1,94 @@
-# Petstore API
+# Petstore API Tests with Newman
 
-This repository contains the Petstore API, which provides a RESTful API for managing pets in a pet store. The API allows users to perform CRUD operations on pets, including adding, updating, deleting, and retrieving pet information.
+This repository contains automated API tests for the [Petstore API](https://petstore.swagger.io/), implemented using [Newman](https://www.npmjs.com/package/newman). These tests ensure the reliability and correctness of the Petstore API endpoints. The project also includes a CI/CD workflow to run the tests and deploy the results to GitHub Pages.
 
-## Getting Started
+## Features
 
-These instructions will guide you on how to set up and run the Petstore API on your local machine for development and testing purposes.
+- **Automated API Testing**: Ensures the functionality and reliability of Petstore API endpoints.
+- **Newman Integration**: Executes tests written in Postman collections.
+- **GitHub Actions CI/CD**: Runs tests automatically on every push to the `main` branch.
+- **HTML Report Deployment**: Publishes detailed test reports to GitHub Pages.
 
-### Prerequisites
+---
 
-- Node.js (v18 or later)
-- npm (v6 or later)
-- Newman (Postman CLI)
+## Project Structure
 
-## GitHub Actions
-This repository is configured with GitHub Actions to automatically run Newman tests and deploy the results to GitHub Pages.
+```
+📦 petstore-api
+├── .github/workflows    # GitHub Actions workflows
+│   ├── newman.yml       # CI/CD workflow for Newman tests
+├── petstore-api.json    # Postman collection with API tests
+├── petstore-api-env.json # Environment variables for the API tests
+├── README.md            # Project documentation
+```
 
-### Workflow Configuration
-The workflow file .github/workflows/run-newman-tests.yml is set up to:
+---
 
-- Checkout the repository
-- Set up the Node.jsenvironment
-- Install Newman and the HTML reporter
-- Run Postman tests and generate an HTML report
-- Deploy the report to GitHub Pages
+## Prerequisites
 
-**Recent Report here:** https://janahbeatriz.github.io/petstore-api/  
+- [Node.js](https://nodejs.org/) (v16 or higher)
+- [Newman](https://www.npmjs.com/package/newman) (installed globally)
 
-### Installation
+---
 
-1. Clone the repository:
+## Installation and Setup
 
-```sh
-git clone https://github.com/janahbeatriz/petstore-api.git
-cd petstore-api
+1. **Clone the Repository**:
+   ```bash
+   git clone https://github.com/janahbeatriz/petstore-api.git
+   cd petstore-api
+   ```
+
+2. **Install Dependencies**:
+   ```bash
+   npm install
+   ```
+
+3. **Install Newman** (if not already installed):
+   ```bash
+   npm install -g newman newman-reporter-html
+   ```
+
+---
+
+## Running the Tests Locally
+
+1. Run the Postman tests using Newman:
+   ```bash
+   newman run petstore-api.json -e petstore-api-env.json -r html,cli --reporter-html-export newman-report.html
+   ```
+
+2. View the generated HTML report:
+   Open the `newman-report.html` file in your browser to view detailed test results.
+
+---
+
+## CI/CD Workflow
+
+This repository includes a GitHub Actions workflow (`newman.yml`) that:
+1. Runs Newman tests on every push to the `main` branch.
+2. Generates an HTML report of the test results.
+3. Deploys the report to GitHub Pages.
+
+### Trigger the Workflow
+
+Push changes to the `main` branch to automatically run the tests and deploy the report.
+
+---
+
+## View Test Reports
+
+After the workflow runs successfully, the HTML report will be available via GitHub Pages at:
+[https://janahbeatriz.github.io/petstore-api/](https://janahbeatriz.github.io/petstore-api/)
+
+---
+
+## Contributing
+
+Feel free to fork this repository and create a pull request for improvements or additional test cases. Contributions are welcome!
+
+---
+
+## License
+
+This project is licensed under the MIT License.
