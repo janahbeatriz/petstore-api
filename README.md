@@ -281,7 +281,7 @@ jobs:
 ## 🌐 View Test Reports
 
 Test reports are automatically deployed to **GitHub Pages** and can be accessed 
-HERE 👉🏼 https://janahbeatriz.github.io/petstore-api/
+[HERE](https://janahbeatriz.github.io/petstore-api/) 👉🏼 https://janahbeatriz.github.io/petstore-api/
 
 ---
 
