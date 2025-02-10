@@ -1,3 +1,4 @@
+<h3 align="center"> <img src="https://komarev.com/ghpvc/?username=janahbeatriz&color=ff69b4" alt="janahintal" /> </h3>
 # 🚀 Petstore API Testing Project
 
 Welcome to the **Petstore API Testing Project**! This repository demonstrates robust API testing practices for the [Swagger Petstore API](https://petstore.swagger.io/). It showcases automated testing, CI/CD integration, dynamic reporting, and deployment to GitHub Pages. This project is designed to validate API functionalities and ensure reliability with automation-driven workflows.
